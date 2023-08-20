@@ -6,11 +6,11 @@ SecureUserManagement
 
 # Need to create roles then create the User:
 
- POST http://{{localhost}}/api/roles/add Content-Type: application/json
+Example: POST http://{{localhost}}/api/roles/add Content-Type: application/json
 
 { "rolesType": ["ADMIN", "USER"] }
 
- POST http://{{localhost}}/api/auth/create Content-Type: application/json
+Example: POST http://{{localhost}}/api/auth/create Content-Type: application/json
 
 { "username": "Test22", "password": "test", "rolesType": "ADMIN" }
 
