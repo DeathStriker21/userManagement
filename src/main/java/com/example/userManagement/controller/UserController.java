@@ -6,7 +6,6 @@ import com.example.userManagement.service.dto.UserResponseDto;
 import com.example.userManagement.service.dto.UserUpdateRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,21 +21,18 @@ public class UserController {
         this.mapper = mapper;
     }
 
-    @PreAuthorize("hasRole('USER')")
     @GetMapping("{username}")
     public ResponseEntity<UserResponseDto> getUser(@PathVariable String username) {
         UserEntity user = service.getUser(username);
         return ResponseEntity.ok(mapper.mapToUserResponseDto(user));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("update/{username}")
     public ResponseEntity<Void> updateUser(@PathVariable String username, @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         service.updateUser(username, userUpdateRequestDto);
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("delete/{username}")
     public ResponseEntity<Void> deleteUser(@PathVariable String username) {
         service.deleteUser(username);
